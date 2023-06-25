@@ -69,8 +69,9 @@ somewords={"English","Japanese","American","British","German","French","Spanish"
 hnrfx={"%-san","%-kun","%-chan","%-sama","%-dono","%-se[nm]pai","%-on%a+an"}
 	t=re.sub(t,[[^(?!\{\\)(\W*\l)]],function(l) return uupper(l) end)
 	t=re.sub(t,[[^\{[^}]*\}(\W*\l)]],function(l) return uupper(l) end)
-	t=re.sub(t,[[((?:\l?\.\l?){2,})(?<!\.\.)]],function(l) return uupper(l) end) -- abbreviations with a many dots like A.B.C. 
-	t=re.sub(t,[[[a-z][\.:\?!](?:{.*?}|\s|\s\\N|\\N)*(?:{.*?})*(?!{.*})(?!\.\.)\W*(\l)]],function(l) return uupper(l) end)
+	t=re.sub(t,[[[a-z][\.:\?!]:?(?:{.*?}|\s|\s\\N|\\N)*(?:{.*?})*(?!{.*})(?!\.\.)\W*(\l)]],function(l) return uupper(l) end)
+	t=re.sub(t,[[(\w\.\w){1,}(?<!\.\.)]],function(l) return uupper(l) end) -- abbreviations with a many dots like A.B.C. 
+	t=re.sub(t,[[(?:\\N)(?:{.*?})*-+ ?(\l)]],function(l) return uupper(l) end) -- lines that hold multiple dialogues but without fullstop
 	t=t
 	:gsub(" i([' %?!%.,])"," I%1")
 	:gsub("\\Ni([' ])","\\NI%1")
